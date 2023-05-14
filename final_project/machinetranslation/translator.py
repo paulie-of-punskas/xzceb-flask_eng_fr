@@ -20,8 +20,8 @@ language_translator.set_service_url(url)
 
 def englishToFrench(englishText):
     serverReturn = language_translator.translate(text=str(englishText),
-    source="fr", 
-    target="en").get_result()
+    source="en", 
+    target="fr").get_result()
     englishText = serverReturn['translations'][0]['translation']
     return englishText
 
