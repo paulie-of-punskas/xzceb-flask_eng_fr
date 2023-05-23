@@ -1,9 +1,7 @@
-import json
+import os
 from ibm_watson import LanguageTranslatorV3
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-import os
 from dotenv import load_dotenv
-import requests 
 
 load_dotenv()
 
@@ -18,20 +16,24 @@ language_translator = LanguageTranslatorV3(
 )
 language_translator.set_service_url(url)
 
-# define englishToFrench method ========================================================
-def englishToFrench(englishText):
-    serverReturn = language_translator.translate(text=str(englishText),
-    source="en", 
-    target="fr").get_result()
-    englishText = serverReturn['translations'][0]['translation']
-    return englishText
 
-# define frenchToEnglish method ========================================================
-def frenchToEnglish(frenchText):
-    serverReturn = language_translator.translate(text=str(frenchText),
-    source="fr", 
-    target="en").get_result()
-    frenchText = serverReturn['translations'][0]['translation']
-    return frenchText
+def englishToFrench(english_text=""):
+    if english_text == "":
+        french_text = "Input parameter cannot be empty"
+    else:
+        server_return = language_translator.translate(text=str(english_text),
+        source="en",
+        target="fr").get_result()
+        french_text = server_return['translations'][0]['translation']
+    return french_text
 
 
+def frenchToEnglish(french_text=""):
+    if french_text == "":
+        english_text = "Input parameter cannot be empty"
+    else:
+        server_return = language_translator.translate(text=str(french_text),
+        source="fr",
+        target="en").get_result()
+        english_text = server_return['translations'][0]['translation']
+    return english_text
